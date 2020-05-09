@@ -1,0 +1,29 @@
+{% extends 'login/login.html' %}
+{% load staticfiles %}
+{% block body_block %}
+<div class="container-fluid">
+  <div class="jumbotron">
+  <div class="row">
+    <div class="col-4">
+    </div>
+    <div class="col-8">
+      <h3 align="center" text-align="center" font-weight="bold"><strong>NEWS</strong></h3>
+      <table class="table table-striped table-bordered table-hover table-condensed">
+  <tbody>
+      {% csrf_token %}
+      {% for nw in news %}
+      <tr>
+
+        <td align="center">{{ nw.StockNews }}</td>
+      </tr>
+      {%endfor%}
+
+
+
+  </tbody>
+</table>
+
+
+
+
+{% endblock %}

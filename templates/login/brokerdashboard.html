@@ -1,0 +1,44 @@
+{% extends 'login/login.html' %}
+{% load staticfiles %}
+{% block body_block %}
+
+<div class="container-fluid">
+  <div class="jumbotron">
+  <div class="row">
+    <div class="col-4">
+    </div>
+    <div class="col-8">
+      <table class="table table-striped table-bordered table-hover table-condensed">
+    <thead>
+    {% if user.is_staff %}Team Number</th>{% endif %}
+    <th>Stock Name</th>
+    <th>Number Of Stock</th>
+    <th>Price</th>
+    {% if user.is_staff %}
+    <th>Action</th>
+    {% endif %}
+    </thead>
+{% if brokerdashdata %}
+  {% for dd in brokerdashdata %}
+  <tr>
+    {% if user.is_staff %}<td>{{ dd.author }}</td>{% endif %}
+    <td>{{ dd.StockName }}</td>
+    <td>{{ dd.NumberOfStock }}</td>
+    <td>{{ dd.SellingPrice }}</td>
+    {% if user.is_staff %}
+    <td><form action="{% url 'UserStockDisplaydelete' dd.id %}" method="post">
+      {% csrf_token %}
+      <input type="hidden" name="dd_id" value="{{dd.id}}"/>
+      <button type="submit" class="btn btn-danger" name="button" value="Delete">Delete</button>
+      </form>
+    </td>
+    {% endif %}
+    
+
+  </tr>
+  {%endfor%}
+{% endif %}
+</table>
+
+
+{% endblock %}
